@@ -1,5 +1,3 @@
 require "phase_shift/version"
-
-module PhaseShift
-  # Your code goes here...
-end
+require 'phase_shift/runner'
+require 'phase_shift/builder'
