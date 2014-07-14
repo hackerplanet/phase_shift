@@ -1,8 +1,10 @@
 module PhaseShift
+  # Create a pipeline by building up stages
   class Builder
-    def self.parse_file(config, file="(phase_shift)")
+    def self.parse_file(config, file = '(phase_shift)')
       builder_script = ::File.read(config)
-      eval "PhaseShift::Builder.new {\n" + builder_script + "\n}.pipeline", TOPLEVEL_BINDING, file, 0
+      code = "PhaseShift::Builder.new {\n" + builder_script + "\n}.pipeline"
+      eval code, TOPLEVEL_BINDING, file, 0
     end
 
     def initialize(default_stage = nil, &block)
@@ -16,7 +18,11 @@ module PhaseShift
     end
 
     def pipeline
-      @use.inject(@default_stage) { |p,e| e[p] }
+      @use.inject(@default_stage) { |a, e| e[a] }
+    end
+
+    def run
+      pipeline.call
     end
   end
 end

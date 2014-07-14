@@ -1,6 +1,7 @@
 require_relative 'builder'
 
 module PhaseShift
+  # Run a defined pipeline
   class Runner
     def initialize(options = nil)
       @options = options
@@ -11,7 +12,7 @@ module PhaseShift
     end
 
     def pipeline
-      raise 'No specified pipeline' unless options.include? :pipeline
+      fail 'No specified pipeline' unless options.include? :pipeline
       @pipeline ||= Builder.parse_file "#{options[:pipeline]}.rb"
     end
 
