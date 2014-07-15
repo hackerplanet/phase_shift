@@ -2,17 +2,11 @@ require 'spec_helper'
 require 'phase_shift/runner'
 
 describe 'PhaseShift::Runner' do
-  subject { PhaseShift::Runner.new(pipeline: 'spec/test') }
+  subject { PhaseShift::Runner.new('spec/test') }
 
   context '#initialize' do
     it 'requires a specified pipeline' do
       expect {PhaseShift::Runner.new}.to raise_error
-    end
-
-    it 'sets the passed options' do
-      runner = PhaseShift::Runner.new(pipeline: 'spec/test', test: 'value')
-      expect(runner.options).to include(:test)
-      expect(runner.options[:test]).to eq 'value'
     end
   end
 
